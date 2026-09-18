@@ -161,13 +161,16 @@ if st.button("Assess Osteoporosis Risk"):
             drop_first=True
         )
 
-        # Add any model features that are missing
-        for feature in model_features:
-            if feature not in patient_encoded.columns:
-                patient_encoded[feature] = 0
+      # Add any model features that are missing
+      for feature in model_features:
+      if feature not in patient_encoded.columns:
+        patient_encoded[feature] = 0.0
 
-        # Keep exactly the features used by the model
-        patient_processed = patient_encoded[model_features].copy()
+      # Keep exactly the features used by the model
+      patient_processed = patient_encoded[model_features].copy()
+
+       # Convert all model inputs to numeric values
+       patient_processed = patient_processed.astype(float)
 
         # Scale Age using the same scaler used during training
         patient_processed["Age"] = scaler.transform(
